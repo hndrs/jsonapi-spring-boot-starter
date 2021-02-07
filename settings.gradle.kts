@@ -5,3 +5,6 @@ project(":spring-json-api").projectDir = File("spring-json-api")
 
 include("spring-json-api-starter")
 project(":spring-json-api-starter").projectDir = File("spring-json-api-starter")
+
+include("sample")
+project(":sample").projectDir = File("sample")

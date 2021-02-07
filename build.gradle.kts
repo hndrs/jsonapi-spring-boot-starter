@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 object Versions {
-    const val KOTLIN_VERSION = "1.4.10"
+    const val KOTLIN_VERSION = "1.4.30"
 }
 
 buildscript {
@@ -18,9 +18,9 @@ plugins {
     id("org.sonarqube").version("3.0")
     `maven-publish`
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
-    kotlin("jvm").version("1.4.0")
-    kotlin("plugin.spring").version("1.4.0")
-    kotlin("kapt").version("1.4.0")
+    kotlin("jvm").version("1.4.30")
+    kotlin("plugin.spring").version("1.4.30")
+    kotlin("kapt").version("1.4.30")
     id("java")
     id("maven-publish")
     id("idea")
@@ -54,7 +54,7 @@ subprojects {
             cacheChangingModulesFor(0, "seconds")
         }
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:2.4.2.RELEASE") {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.4.2") {
                 bomProperty("kotlin.version", Versions.KOTLIN_VERSION)
             }
         }
@@ -76,7 +76,7 @@ subprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "11"
+            jvmTarget = "15"
         }
     }
 
@@ -86,25 +86,28 @@ subprojects {
         from(sourceSets["main"].allSource)
     }
 
-    publishing {
-        repositories {
-            
-        }
-        publications {
-            create<MavenPublication>(project.name) {
-                from(components["java"])
-                artifact(sourcesJarSubProject)
+    if (project.name != "sample") {
+        println(project.name)
+        publishing {
+            repositories {
 
-                groupId = rootProject.group as? String
-                artifactId = project.name
-                version = "${rootProject.version}${project.findProperty("version.appendix") ?: ""}"
             }
-        }
+            publications {
+                create<MavenPublication>(project.name) {
+                    from(components["java"])
+                    artifact(sourcesJarSubProject)
 
+                    groupId = rootProject.group as? String
+                    artifactId = project.name
+                    version = "${rootProject.version}${project.findProperty("version.appendix") ?: ""}"
+                }
+            }
+
+        }
     }
 
     configure<JacocoPluginExtension> {
-        toolVersion = "0.8.5"
+        toolVersion = "0.8.6"
     }
 
     tasks.withType<JacocoReport> {
