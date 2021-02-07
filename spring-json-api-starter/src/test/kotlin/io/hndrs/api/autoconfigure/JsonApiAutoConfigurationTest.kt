@@ -1,6 +1,7 @@
 package io.hndrs.api.autoconfigure
 
 import io.hndrs.api.exception.ExceptionHandler
+import io.hndrs.api.response.ResponseAdvise
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -17,6 +18,7 @@ internal class JsonApiAutoConfigurationTest {
                 AutoConfigurations.of(JsonApiAutoConfiguration::class.java)
             ).run {
                 Assertions.assertNotNull(it.getBean(ExceptionHandler::class.java))
+                Assertions.assertNotNull(it.getBean(ResponseAdvise::class.java))
             }
     }
 }
