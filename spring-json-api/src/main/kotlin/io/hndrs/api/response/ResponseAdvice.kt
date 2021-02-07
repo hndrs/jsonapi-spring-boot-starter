@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
 
 @ControllerAdvice
-class ResponseAdvise : ResponseBodyAdvice<Any> {
+class ResponseAdvice : ResponseBodyAdvice<Any> {
 
     override fun beforeBodyWrite(
         value: Any?,
