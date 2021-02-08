@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.hndrs.api.autoconfigure.JsonApiAutoConfiguration
