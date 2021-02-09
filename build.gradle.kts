@@ -24,9 +24,10 @@ plugins {
     id("java")
     id("maven-publish")
     id("idea")
+    id("signing")
 }
 
-group = "com.elvah.auth"
+group = "io.hndrs"
 version = rootProject.file("version.txt").readText().trim()
 java.sourceCompatibility = JavaVersion.VERSION_15
 java.targetCompatibility = JavaVersion.VERSION_15
@@ -94,7 +95,14 @@ subprojects {
     if (project.name != "sample") {
         publishing {
             repositories {
-
+                maven {
+                    name = "release"
+                    url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+                    credentials {
+                        username = System.getenv("SONATYPE_USER")
+                        password = System.getenv("SONATYPE_PASSWORD")
+                    }
+                }
             }
             publications {
                 create<MavenPublication>(project.name) {
@@ -105,6 +113,12 @@ subprojects {
                     artifactId = project.name
                     version = "${rootProject.version}${project.findProperty("version.appendix") ?: ""}"
                 }
+            }
+            signing {
+                val signingKey: String = System.getenv("SIGNING_KEY")
+                val signingPassword: String = System.getenv("SIGNING_PASSWORD")
+                useInMemoryPgpKeys(groovy.json.StringEscapeUtils.unescapeJava(signingKey), signingPassword)
+                sign(publications[project.name])
             }
 
         }
