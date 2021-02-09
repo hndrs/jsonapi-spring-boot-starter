@@ -36,6 +36,10 @@ repositories {
     mavenCentral()
 }
 
+allprojects{
+    apply(plugin = "signing")
+}
+
 subprojects {
 
     apply(plugin = "kotlin")
@@ -114,13 +118,15 @@ subprojects {
                     version = "${rootProject.version}${project.findProperty("version.appendix") ?: ""}"
                 }
             }
-            signing {
-                val signingKey: String = System.getenv("SIGNING_KEY")
-                val signingPassword: String = System.getenv("SIGNING_PASSWORD")
-                useInMemoryPgpKeys(groovy.json.StringEscapeUtils.unescapeJava(signingKey), signingPassword)
-                sign(publications[project.name])
-            }
+            val signingKey: String? = System.getenv("SIGNING_KEY")
+            val signingPassword: String? = System.getenv("SIGNING_PASSWORD")
+            if(signingKey != null && signingPassword != null){
+                signing {
 
+                    useInMemoryPgpKeys(groovy.json.StringEscapeUtils.unescapeJava(signingKey), signingPassword)
+                    sign(publications[project.name])
+                }
+            }
         }
     }
 
