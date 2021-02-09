@@ -64,6 +64,11 @@ subprojects {
         mavenCentral()
     }
 
+    tasks.withType<Wrapper> {
+        gradleVersion = "6.8.2"
+        // anything else
+    }
+
     dependencies {
         api("org.jetbrains.kotlin:kotlin-reflect")
         api("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -87,7 +92,6 @@ subprojects {
     }
 
     if (project.name != "sample") {
-        println(project.name)
         publishing {
             repositories {
 

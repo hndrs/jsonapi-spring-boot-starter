@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.runner.WebApplicationContextRunner
 internal class JsonApiAutoConfigurationTest {
 
     @Test
-    fun test() {
+    fun autoconfiguredBeans() {
         WebApplicationContextRunner()
             .withConfiguration(
                 AutoConfigurations.of(JsonApiAutoConfiguration::class.java)
