@@ -44,7 +44,8 @@ sonarqube {
         property("sonar.projectKey", "hndrs_jsonapi-spring-boot-starter")
         property("sonar.organization", "hndrs")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.exclusions", "**/sample/**")
+        property("sonar.exclusions", "**/sample/**, **/response/Meta.kt," +
+                " **/response/Response.kt, **/response/ErrorResponse.kt")
     }
 }
 
