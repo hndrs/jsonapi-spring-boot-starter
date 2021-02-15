@@ -6,4 +6,5 @@ dependencies {
     kapt(group = "org.springframework.boot", name = "spring-boot-configuration-processor")
 
     testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
+    testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-web")
 }

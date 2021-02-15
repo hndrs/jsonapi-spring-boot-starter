@@ -1,6 +1,5 @@
 package io.hndrs.api.autoconfigure
 
-import com.nhaarman.mockitokotlin2.verify
 import io.hndrs.api.exception.ExceptionHandler
 import io.hndrs.api.response.ResponseAdvice
 import org.junit.jupiter.api.Assertions
@@ -18,6 +17,7 @@ internal class JsonApiAutoConfigurationTest {
             .withConfiguration(
                 AutoConfigurations.of(JsonApiAutoConfiguration::class.java)
             ).run {
+                
                 Assertions.assertNotNull(it.getBean(ExceptionHandler::class.java))
                 Assertions.assertNotNull(it.getBean(ResponseAdvice::class.java))
             }
