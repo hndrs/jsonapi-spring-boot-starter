@@ -35,4 +35,4 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Check
         run: |
-          ./gradlew check
+          ./gradlew check jacocoTestReport sonarqube
