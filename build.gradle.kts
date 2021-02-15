@@ -2,13 +2,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories {
-        mavenLocal()
         mavenCentral()
         maven(url = "https://repo.spring.io/plugins-release")
     }
     dependencies {
         classpath("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
-        classpath("io.hndrs.gradle:gradle-publishing-info-plugin:1.0.0")
     }
 }
 
