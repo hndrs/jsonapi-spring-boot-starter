@@ -1,4 +1,4 @@
-rootProject.name = "jsonapi-spring-boot-starter"
+rootProject.name = "hndrs-jsonapi-spring-boot-starter"
 
 include("spring-json-api")
 project(":spring-json-api").projectDir = File("spring-json-api")
