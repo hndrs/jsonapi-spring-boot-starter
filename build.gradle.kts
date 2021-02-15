@@ -63,7 +63,7 @@ subprojects {
     apply(plugin = "signing")
     apply(plugin = "io.hndrs.publishing-info")
 
-    publishingInfo {
+  publishingInfo {
         name = project.name
         url = "https://github.com/hndrs/jsonapi-spring-boot-starter"
         license = License(
@@ -118,13 +118,6 @@ subprojects {
         }
     }
 
-    val sourcesJarSubProject by tasks.creating(Jar::class) {
-        dependsOn("classes")
-        archiveClassifier.set("sources")
-        from(sourceSets["main"].allSource)
-    }
-
-
     if (project.name != "sample") {
 
         publishing {
@@ -138,19 +131,7 @@ subprojects {
                     }
                 }
             }
-            publications {
-                create<MavenPublication>(project.name) {
-                    from(components["java"])
-                    artifact(sourcesJarSubProject)
 
-                    groupId = rootProject.group as? String
-                    artifactId = project.name
-                    version = "${rootProject.version}${project.findProperty("version.appendix") ?: ""}"
-                    pom {
-
-                    }
-                }
-            }
             val signingKey: String? = System.getenv("SIGNING_KEY")
             val signingPassword: String? = System.getenv("SIGNING_PASSWORD")
             if (signingKey != null && signingPassword != null) {
