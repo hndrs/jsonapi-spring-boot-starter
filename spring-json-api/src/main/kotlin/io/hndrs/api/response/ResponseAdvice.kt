@@ -21,7 +21,10 @@ class ResponseAdvice : ResponseBodyAdvice<Any> {
         response: ServerHttpResponse
     ): Any? {
         return when (value) {
-            is ResponseEntity<*> -> ResponseEntity.status(value.statusCode).headers(value.headers).body(value.body)
+            is ResponseEntity<*> -> ResponseEntity
+                .status(value.statusCode)
+                .headers(value.headers)
+                .body(Response(value.body))
             null -> null
             else -> Response(value)
         }

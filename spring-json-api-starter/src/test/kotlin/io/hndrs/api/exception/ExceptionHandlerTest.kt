@@ -1,7 +1,7 @@
 package io.hndrs.api.exception
 
-import com.nhaarman.mockitokotlin2.mock
 import io.hndrs.api.response.ErrorResponse
+import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
@@ -44,7 +44,7 @@ internal class ExceptionHandlerTest {
                 null,
                 HttpHeaders(),
                 expectedStatus,
-                mock()
+                mockk()
             )
 
         assertEquals(expectedStatus, response.statusCode)
