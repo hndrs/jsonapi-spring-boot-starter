@@ -3,8 +3,8 @@ rootProject.name = "hndrs-jsonapi-spring-boot-starter"
 include("spring-json-api")
 project(":spring-json-api").projectDir = File("spring-json-api")
 
-include("spring-json-api-starter")
-project(":spring-json-api-starter").projectDir = File("spring-json-api-starter")
+include("jsonapi-spring-boot-starter")
+project(":jsonapi-spring-boot-starter").projectDir = File("spring-json-api-starter")
 
 include("sample")
 project(":sample").projectDir = File("sample")

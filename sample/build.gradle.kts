@@ -7,5 +7,5 @@ repositories {
 
 dependencies {
     implementation(group = "org.springframework.boot", name = "spring-boot-starter-web")
-    implementation(project(":spring-json-api-starter"))
+    implementation(project(":jsonapi-spring-boot-starter"))
 }
