@@ -27,7 +27,7 @@ plugins {
     id("maven-publish")
     id("idea")
     id("signing")
-    id("io.hndrs.publishing-info").version("1.0.0")
+    id("io.hndrs.publishing-info").version("1.1.0")
 }
 
 group = "io.hndrs"
@@ -64,6 +64,7 @@ subprojects {
     apply(plugin = "io.hndrs.publishing-info")
 
     publishingInfo {
+        name = project.name
         url = "https://github.com/hndrs/jsonapi-spring-boot-starter"
         license = License(
             "https://github.com/hndrs/jsonapi-spring-boot-starter/blob/main/LICENSE",
@@ -77,6 +78,10 @@ subprojects {
             "scm:git:git://github.com/hndrs/jsonapi-spring-boot-starter",
             "https://github.com/hndrs/jsonapi-spring-boot-starter"
         )
+    }
+
+    java {
+        withJavadocJar()
     }
 
     dependencyManagement {

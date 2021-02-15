@@ -3,3 +3,6 @@ dependencies {
 
     testImplementation("io.mockk:mockk:1.10.6")
 }
+publishingInfo {
+    description = "SpringBoot json api response classes and advices"
+}
