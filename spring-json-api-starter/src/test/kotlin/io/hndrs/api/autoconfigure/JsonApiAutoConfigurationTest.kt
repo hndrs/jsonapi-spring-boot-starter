@@ -17,6 +17,7 @@ internal class JsonApiAutoConfigurationTest {
             .withConfiguration(
                 AutoConfigurations.of(JsonApiAutoConfiguration::class.java)
             ).run {
+                
                 Assertions.assertNotNull(it.getBean(ExceptionHandler::class.java))
                 Assertions.assertNotNull(it.getBean(ResponseAdvice::class.java))
             }

@@ -1,3 +1,3 @@
 dependencies {
-    api(group = "org.springframework.boot", name = "spring-boot-starter-web")
+    optional(group = "org.springframework.boot", name = "spring-boot-starter-web")
 }
