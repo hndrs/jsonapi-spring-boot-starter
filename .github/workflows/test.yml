@@ -1,8 +1,7 @@
-name: Tests
+name: Gradle
 
 # Controls when the action will run.
 on:
-
   pull_request:
     branches: [ main ]
 
@@ -11,21 +10,21 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  test:
+  check:
     runs-on: ubuntu-latest
 
     steps:
-      - name: git checkout
+      - name: Git Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: setup java
+      - name: Setup Java
         uses: actions/setup-java@v1
         with:
-          java-version: '15'
+          java-version: '11'
 
-      - name: setup build cache
+      - name: Setup Build Cache
         uses: actions/cache@v2
         with:
           path: |
@@ -34,16 +33,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-
-      - name: tests
+      - name: Check
         run: |
           ./gradlew check
-
-      - name: publish
-        env:
-          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-        run: |
-          ./gradlew publish

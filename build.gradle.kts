@@ -1,9 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-object Versions {
-    const val KOTLIN_VERSION = "1.4.30"
-}
-
 buildscript {
     repositories {
         mavenLocal()
@@ -50,23 +46,6 @@ sonarqube {
     }
 }
 
-publishingInfo {
-    url = "https://github.com/hndrs/jsonapi-spring-boot-starter"
-    license = io.hndrs.gradle.plugin.License(
-        "https://github.com/hndrs/jsonapi-spring-boot-starter/blob/main/LICENSE",
-        "MIT License"
-    )
-    developers = listOf(
-        io.hndrs.gradle.plugin.Developer("marvinschramm", "Marvin Schramm", "marvin.schramm@gmail.com")
-    )
-    organization = io.hndrs.gradle.plugin.Organization("hndrs", "https://oss.hndrs.io")
-    scm = io.hndrs.gradle.plugin.Scm(
-        "scm:git:git://github.com/hndrs/jsonapi-spring-boot-starter",
-        "https://github.com/hndrs/jsonapi-spring-boot-starter"
-    )
-}
-
-
 subprojects {
 
     apply(plugin = "kotlin")
@@ -79,6 +58,23 @@ subprojects {
     apply(plugin = "propdeps")
     apply(plugin = "propdeps-idea")
     apply(plugin = "signing")
+    apply(plugin = "io.hndrs.publishing-info")
+
+    publishingInfo {
+        url = "https://github.com/hndrs/jsonapi-spring-boot-starter"
+        license = io.hndrs.gradle.plugin.License(
+            "https://github.com/hndrs/jsonapi-spring-boot-starter/blob/main/LICENSE",
+            "MIT License"
+        )
+        developers = listOf(
+            io.hndrs.gradle.plugin.Developer("marvinschramm", "Marvin Schramm", "marvin.schramm@gmail.com")
+        )
+        organization = io.hndrs.gradle.plugin.Organization("hndrs", "https://oss.hndrs.io")
+        scm = io.hndrs.gradle.plugin.Scm(
+            "scm:git:git://github.com/hndrs/jsonapi-spring-boot-starter",
+            "https://github.com/hndrs/jsonapi-spring-boot-starter"
+        )
+    }
 
     dependencyManagement {
         resolutionStrategy {
