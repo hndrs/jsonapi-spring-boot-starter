@@ -1,3 +1,7 @@
+import io.hndrs.gradle.plugin.Developer
+import io.hndrs.gradle.plugin.License
+import io.hndrs.gradle.plugin.Organization
+import io.hndrs.gradle.plugin.Scm
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -40,7 +44,8 @@ sonarqube {
         property("sonar.projectKey", "hndrs_jsonapi-spring-boot-starter")
         property("sonar.organization", "hndrs")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.exclusions", "**/sample/**")
+        property("sonar.exclusions", "**/sample/**, **/response/Meta.kt," +
+                " **/response/Response.kt, **/response/ErrorResponse.kt")
     }
 }
 
@@ -60,15 +65,15 @@ subprojects {
 
     publishingInfo {
         url = "https://github.com/hndrs/jsonapi-spring-boot-starter"
-        license = io.hndrs.gradle.plugin.License(
+        license = License(
             "https://github.com/hndrs/jsonapi-spring-boot-starter/blob/main/LICENSE",
             "MIT License"
         )
         developers = listOf(
-            io.hndrs.gradle.plugin.Developer("marvinschramm", "Marvin Schramm", "marvin.schramm@gmail.com")
+            Developer("marvinschramm", "Marvin Schramm", "marvin.schramm@gmail.com")
         )
-        organization = io.hndrs.gradle.plugin.Organization("hndrs", "https://oss.hndrs.io")
-        scm = io.hndrs.gradle.plugin.Scm(
+        organization = Organization("hndrs", "https://oss.hndrs.io")
+        scm = Scm(
             "scm:git:git://github.com/hndrs/jsonapi-spring-boot-starter",
             "https://github.com/hndrs/jsonapi-spring-boot-starter"
         )
@@ -99,8 +104,6 @@ subprojects {
         api("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         testImplementation(platform("org.junit:junit-bom:5.7.0"))
         testImplementation("org.junit.jupiter:junit-jupiter")
-        testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
-
     }
 
     tasks.withType<KotlinCompile> {
