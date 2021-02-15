@@ -26,7 +26,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
             .body(ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.message))
     }
 
-    override fun handleExceptionInternal(
+    public override fun handleExceptionInternal(
         ex: Exception,
         body: Any?,
         headers: HttpHeaders,
