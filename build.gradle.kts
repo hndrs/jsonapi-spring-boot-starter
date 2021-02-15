@@ -6,39 +6,66 @@ object Versions {
 
 buildscript {
     repositories {
+        mavenLocal()
         mavenCentral()
         maven(url = "https://repo.spring.io/plugins-release")
     }
     dependencies {
         classpath("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
+        classpath("io.hndrs.gradle:gradle-publishing-info-plugin:1.0.0")
     }
 }
 
+val springBootDependencies: String by extra
+val kotlinVersion: String by extra
+
 plugins {
-    id("org.sonarqube").version("3.0")
-    `maven-publish`
-    id("io.spring.dependency-management") version "1.0.10.RELEASE"
-    kotlin("jvm").version("1.4.30")
-    kotlin("plugin.spring").version("1.4.30")
-    kotlin("kapt").version("1.4.30")
+    id("org.sonarqube").version("3.1.1")
+    id("io.spring.dependency-management")
+    kotlin("jvm")
+    kotlin("plugin.spring")
+    kotlin("kapt")
     id("java")
     id("maven-publish")
     id("idea")
     id("signing")
+    id("io.hndrs.publishing-info").version("1.0.0")
 }
 
 group = "io.hndrs"
 version = rootProject.file("version.txt").readText().trim()
-java.sourceCompatibility = JavaVersion.VERSION_15
-java.targetCompatibility = JavaVersion.VERSION_15
+java.sourceCompatibility = JavaVersion.VERSION_11
+java.targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
 }
 
-allprojects{
-    apply(plugin = "signing")
+sonarqube {
+    properties {
+        property("sonar.projectKey", "hndrs_jsonapi-spring-boot-starter")
+        property("sonar.organization", "hndrs")
+        property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.exclusions", "**/sample/**")
+    }
 }
+
+publishingInfo {
+    url = "https://github.com/hndrs/jsonapi-spring-boot-starter"
+    license = io.hndrs.gradle.plugin.License(
+        "https://github.com/hndrs/jsonapi-spring-boot-starter/blob/main/LICENSE",
+        "MIT License"
+    )
+    developers = listOf(
+        io.hndrs.gradle.plugin.Developer("marvinschramm", "Marvin Schramm", "marvin.schramm@gmail.com")
+    )
+    organization = io.hndrs.gradle.plugin.Organization("hndrs", "https://oss.hndrs.io")
+    scm = io.hndrs.gradle.plugin.Scm(
+        "scm:git:git://github.com/hndrs/jsonapi-spring-boot-starter",
+        "https://github.com/hndrs/jsonapi-spring-boot-starter"
+    )
+}
+
 
 subprojects {
 
@@ -51,16 +78,15 @@ subprojects {
     apply(plugin = "jacoco")
     apply(plugin = "propdeps")
     apply(plugin = "propdeps-idea")
-
-
+    apply(plugin = "signing")
 
     dependencyManagement {
         resolutionStrategy {
             cacheChangingModulesFor(0, "seconds")
         }
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:2.4.2") {
-                bomProperty("kotlin.version", Versions.KOTLIN_VERSION)
+            mavenBom("org.springframework.boot:spring-boot-dependencies:$springBootDependencies") {
+                bomProperty("kotlin.version", kotlinVersion)
             }
         }
     }
@@ -86,7 +112,7 @@ subprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "15"
+            jvmTarget = "11"
         }
     }
 
@@ -96,7 +122,9 @@ subprojects {
         from(sourceSets["main"].allSource)
     }
 
+
     if (project.name != "sample") {
+
         publishing {
             repositories {
                 maven {
@@ -116,13 +144,15 @@ subprojects {
                     groupId = rootProject.group as? String
                     artifactId = project.name
                     version = "${rootProject.version}${project.findProperty("version.appendix") ?: ""}"
+                    pom {
+
+                    }
                 }
             }
             val signingKey: String? = System.getenv("SIGNING_KEY")
             val signingPassword: String? = System.getenv("SIGNING_PASSWORD")
-            if(signingKey != null && signingPassword != null){
+            if (signingKey != null && signingPassword != null) {
                 signing {
-
                     useInMemoryPgpKeys(groovy.json.StringEscapeUtils.unescapeJava(signingKey), signingPassword)
                     sign(publications[project.name])
                 }

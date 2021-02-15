@@ -1,5 +1,6 @@
 package io.hndrs.api.autoconfigure
 
+import com.nhaarman.mockitokotlin2.verify
 import io.hndrs.api.exception.ExceptionHandler
 import io.hndrs.api.response.ResponseAdvice
 import org.junit.jupiter.api.Assertions

@@ -1,4 +1,9 @@
 dependencies {
     api(project(":spring-json-api"))
+    api(group = "org.springframework.boot", name = "spring-boot-autoconfigure")
+
+    annotationProcessor(group = "org.springframework.boot", name = "spring-boot-configuration-processor")
+    kapt(group = "org.springframework.boot", name = "spring-boot-configuration-processor")
+
     testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
 }
