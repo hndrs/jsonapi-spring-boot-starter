@@ -9,7 +9,7 @@ dependencies {
 publishingInfo {
     description = "SpringBoot json api response starter"
 }
-publishing{
+publishing {
     val sourcesJarSubProject by tasks.creating(Jar::class) {
         dependsOn("classes")
         archiveClassifier.set("sources")
@@ -26,6 +26,14 @@ publishing{
             version = "${rootProject.version}${project.findProperty("version.appendix") ?: ""}"
             pom {
 
+            }
+        }
+        val signingKey: String? = System.getenv("SIGNING_KEY")
+        val signingPassword: String? = System.getenv("SIGNING_PASSWORD")
+        if (signingKey != null && signingPassword != null) {
+            signing {
+                useInMemoryPgpKeys(groovy.json.StringEscapeUtils.unescapeJava(signingKey), signingPassword)
+                sign(publications[project.name])
             }
         }
     }

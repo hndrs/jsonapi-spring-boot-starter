@@ -131,15 +131,6 @@ subprojects {
                     }
                 }
             }
-
-            val signingKey: String? = System.getenv("SIGNING_KEY")
-            val signingPassword: String? = System.getenv("SIGNING_PASSWORD")
-            if (signingKey != null && signingPassword != null) {
-                signing {
-                    useInMemoryPgpKeys(groovy.json.StringEscapeUtils.unescapeJava(signingKey), signingPassword)
-                    sign(publications[project.name])
-                }
-            }
         }
     }
 
