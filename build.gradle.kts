@@ -7,10 +7,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 buildscript {
     repositories {
         mavenCentral()
-        maven(url = "https://repo.spring.io/plugins-release")
-    }
-    dependencies {
-        classpath("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
     }
 }
 
@@ -18,7 +14,7 @@ val springBootDependencies: String by extra
 val kotlinVersion: String by extra
 
 plugins {
-    id("org.sonarqube").version("3.1.1")
+    id("org.sonarqube").version("3.3")
     id("io.spring.dependency-management")
     kotlin("jvm")
     kotlin("plugin.spring")
@@ -27,7 +23,7 @@ plugins {
     id("maven-publish")
     id("idea")
     id("signing")
-    id("io.hndrs.publishing-info").version("1.1.0")
+    id("io.hndrs.publishing-info").version("2.0.0")
 }
 
 group = "io.hndrs"
@@ -44,8 +40,10 @@ sonarqube {
         property("sonar.projectKey", "hndrs_jsonapi-spring-boot-starter")
         property("sonar.organization", "hndrs")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.exclusions", "**/sample/**, **/response/Meta.kt," +
-                " **/response/Response.kt, **/response/ErrorResponse.kt")
+        property(
+            "sonar.exclusions", "**/sample/**, **/response/Meta.kt," +
+                    " **/response/Response.kt, **/response/ErrorResponse.kt"
+        )
     }
 }
 
@@ -58,12 +56,9 @@ subprojects {
     apply(plugin = "kotlin-kapt")
     apply(plugin = "maven-publish")
     apply(plugin = "jacoco")
-    apply(plugin = "propdeps")
-    apply(plugin = "propdeps-idea")
     apply(plugin = "signing")
-    apply(plugin = "io.hndrs.publishing-info")
 
-  publishingInfo {
+    publishingInfo {
         name = project.name
         url = "https://github.com/hndrs/jsonapi-spring-boot-starter"
         license = License(
