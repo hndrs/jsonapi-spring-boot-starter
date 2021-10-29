@@ -1,13 +1,13 @@
 dependencies {
     api(group = "org.springframework.boot", name = "spring-boot-starter-web")
 
-    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("io.mockk:mockk:1.12.0")
 }
 
 publishingInfo {
     description = "SpringBoot json api response classes and advices"
 }
-publishing{
+publishing {
     val sourcesJarSubProject by tasks.creating(Jar::class) {
         dependsOn("classes")
         archiveClassifier.set("sources")
