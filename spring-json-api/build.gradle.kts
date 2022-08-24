@@ -1,7 +1,7 @@
 dependencies {
     api(group = "org.springframework.boot", name = "spring-boot-starter-web")
 
-    testImplementation("io.mockk:mockk:1.12.0")
+    testImplementation("io.mockk:mockk:1.12.7")
 }
 
 publishingInfo {
