@@ -102,7 +102,7 @@ subprojects {
     dependencies {
         api("org.jetbrains.kotlin:kotlin-reflect")
         api("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-        testImplementation(platform("org.junit:junit-bom:5.8.1"))
+        testImplementation(platform("org.junit:junit-bom:5.9.2"))
         testImplementation("org.junit.jupiter:junit-jupiter")
     }
 
